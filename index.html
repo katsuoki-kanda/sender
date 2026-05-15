@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>送信側 - Firebase</title>
+</head>
+<body>
+    <h1>送信側アプリ</h1>
+    <input type="text" id="messageInput" placeholder="メッセージを入力">
+    <button id="sendBtn">送信</button>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+
+        // ※ここに自身のFirebase Consoleからコピーした設定を貼り付けてください
+        const firebaseConfig = {
+            apiKey: "AIzaSyDTCv2WjsAB_IqoPQtW-cc8gVbtagQyDOU",
+            authDomain: "tuusin-4b511.firebaseapp.com",
+            databaseURL: "https://tuusin-4b511-default-rtdb.firebaseio.com/",
+            projectId: "tuusin-4b511",
+            storageBucket: "tuusin-4b511.firebasestorage.app",
+            messagingSenderId: "816051060583",
+            appId: "1:816051060583:web:63758834a1fd18c7f879c2",
+            measurementId: "G-R8Q5H0JE4G"
+
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        document.getElementById('sendBtn').onclick = () => {
+            const val = document.getElementById('messageInput').value;
+            // 'shared/message' という場所のデータを書き換えます
+            set(ref(db, 'shared/message'), val);
+        };
+    </script>
+</body>
+</html>
